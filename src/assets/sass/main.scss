@@ -1,0 +1,113 @@
+@charset "utf-8";
+@import "./variables";
+
+@keyframes jump {
+    0% {top: 0}
+    50% {top:-40px}
+    100%{top: 0}
+}
+
+.logotxt{
+    position: relative;
+    &.jump{
+        animation: jump 0.5s ease-in-out;
+    }
+}
+
+textarea::-webkit-scrollbar{
+    width: 3px;
+}
+textarea::-webkit-scrollbar-track{
+    background-color: $primary-bg;
+}
+textarea::-webkit-scrollbar-thumb{
+    background-color: $primary-point;
+    border-radius: 5px;
+}
+
+.sub-title{
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 40px;
+    color:$primary-point;
+    font-family: $webfont-sub;
+    font-weight: normal;
+}
+
+.form{
+    background:$primary-base;
+    border-radius: 5px;
+    max-width: 400px;
+    border:1px solid $primary-point;
+    border-top:3px solid $primary-point;
+    border-radius: 5px;
+    padding:30px;
+    box-sizing: border-box;
+    margin:0 auto;
+    @include mq(xs) {
+		padding: 30px 20px;
+        margin: 0 15px;
+	}
+    dl{
+        display: flex;
+        align-items: center;
+        + dl{
+            margin-top: 10px;
+        }
+        dt{
+            flex-basis: 10%;
+            display: flex;
+            align-items: center;
+            font-size: 1.3rem;
+            @include mq(xs) {
+                flex-basis: 15%;
+            }
+            span{
+                font-size: 20px;
+                color:$primary-point;
+            }
+        }
+        dd{
+            flex-basis: 90%;
+            @include mq(xs) {
+                flex-basis: 85%;
+            }
+            input,
+            textarea{
+                width: 100%;
+                font-size: 1.6rem;
+                padding:10px;
+                border-radius: 5px;
+                box-sizing: border-box;
+            }
+        }
+    }
+    button{
+        margin-top: 20px;
+        background: $primary-point;
+        color: $primary-bg;
+        display: block;
+        width: 100%;
+        line-height: 40px;
+        letter-spacing: 0.2em;
+        font-weight: bold;
+        border-radius: 5px;
+        cursor: pointer;
+        box-shadow: 0 3px 0 $primary-bg;
+        
+        &:hover{
+            color: $primary-point;
+            background: $primary-bg;
+            box-shadow: 0 3px 0 $primary-point; 
+        }
+    }
+}
+
+.result{
+    background: $primary-result;
+    margin: 0 auto 20px;
+    max-width: 300px;
+    text-align: center;
+    padding: 10px 0;
+    font-size:1.3rem;
+}
