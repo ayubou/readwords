@@ -1,24 +1,6 @@
-# readworks
+## ステータス
 
-## Project setup
-```
-yarn install
-```
+このリポジトリは現在リファクタリング中です 🚧
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- 古いコードベースを整理してモダンな構成に移行中
+- 今後の目標: Vue3・TS 対応、firebase 見直し
