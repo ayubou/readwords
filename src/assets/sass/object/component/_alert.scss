@@ -1,0 +1,10 @@
+@use "../../foundation/globals" as g;
+
+.c-alert {
+  background: g.$primary-result;
+  margin: 0 auto 20px;
+  max-width: 300px;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 1.3rem;
+}

@@ -1,0 +1,33 @@
+@use "../../foundation/_globals" as g;
+
+.c-btn-header {
+  a {
+    color: g.$primary-point;
+    background: g.$primary-bg;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 5px;
+    border-bottom: 2px solid g.$primary-sub;
+    &:hover {
+      background: g.$primary-sub;
+      border-bottom: 2px solid g.$primary-base;
+    }
+  }
+
+  &--home a {
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+    padding: 0 5px;
+
+    span {
+      font-size: 14px;
+    }
+  }
+
+  &--nav a {
+    display: inline-block;
+    font-size: 1.3rem;
+    padding: 0 10px;
+  }
+}

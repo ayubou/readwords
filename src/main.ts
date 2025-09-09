@@ -3,6 +3,7 @@ import { createPinia } from "pinia";
 import { initializeApp } from "firebase/app";
 import App from "./App.vue";
 import router from "./router/index";
+import "@/assets/sass/main.scss";
 
 //TODO:全体的に見直す
 

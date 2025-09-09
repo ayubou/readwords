@@ -1,0 +1,22 @@
+@use "../../foundation/_globals" as g;
+
+.c-btn-logout {
+  margin: 20px auto 0;
+  background: g.$primary-sub;
+  color: g.$primary-point;
+  display: block;
+  width: 100%;
+  line-height: 40px;
+  letter-spacing: 0.2em;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 3px 0 g.$primary-point;
+  max-width: 200px;
+
+  &:hover {
+    color: g.$primary-bg;
+    background: g.$primary-point;
+    box-shadow: 0 3px 0 g.$primary-sub;
+  }
+}

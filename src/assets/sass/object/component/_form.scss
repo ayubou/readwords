@@ -1,0 +1,71 @@
+@use "../../foundation/globals" as g;
+@use "../../foundation/mq" as mq;
+
+.c-form {
+  background: g.$primary-base;
+  border-radius: 5px;
+  max-width: 400px;
+  border: 1px solid g.$primary-point;
+  border-top: 3px solid g.$primary-point;
+  border-radius: 5px;
+  padding: 30px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  @include mq.mq(xs) {
+    padding: 30px 20px;
+    margin: 0 15px;
+  }
+  dl {
+    display: flex;
+    align-items: center;
+    + dl {
+      margin-top: 10px;
+    }
+    dt {
+      flex-basis: 10%;
+      display: flex;
+      align-items: center;
+      font-size: 1.3rem;
+      @include mq.mq(xs) {
+        flex-basis: 15%;
+      }
+      span {
+        font-size: 20px;
+        color: g.$primary-point;
+      }
+    }
+    dd {
+      flex-basis: 90%;
+      @include mq.mq(xs) {
+        flex-basis: 85%;
+      }
+      input,
+      textarea {
+        width: 100%;
+        font-size: 1.6rem;
+        padding: 10px;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+    }
+  }
+  button {
+    margin-top: 20px;
+    background: g.$primary-point;
+    color: g.$primary-bg;
+    display: block;
+    width: 100%;
+    line-height: 40px;
+    letter-spacing: 0.2em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 3px 0 g.$primary-bg;
+
+    &:hover {
+      color: g.$primary-point;
+      background: g.$primary-bg;
+      box-shadow: 0 3px 0 g.$primary-point;
+    }
+  }
+}

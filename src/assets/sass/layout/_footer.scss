@@ -1,0 +1,15 @@
+@use "../foundation/_globals" as g;
+@use "../foundation/mq" as mq;
+
+.l-footer {
+  margin-top: 100px;
+  text-align: center;
+  padding: 15px;
+  color: g.$primary-bg;
+  font-size: 1.3rem;
+  background: g.$primary-point;
+
+  @include mq.mq(xs) {
+    margin-top: 60px;
+  }
+}

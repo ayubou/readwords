@@ -3,13 +3,17 @@
 - 2022 年作の自作プロジェクトで全体的にかなり古いので、コードを整理してモダンな構成に移行中。
 - 【現状進捗】
   - [x] （20250908）Vue2 +JS 構造は一旦そのままで Vue3+TS に変更。全体見直しはまだ。
+  - [x] （20250909）CSS は FLOCSS で、 Vue で SCSS もたない。
 - 【今後の目標】
   - [ ] 全体的に構造見直し。
+  - [ ] 全体的にコードリファクタ。JSDoc いれる。
   - [ ] ビルド設定見直し。
-  - [ ] JSDoc いれる。
-  - [ ] CSS は FLOCSS で設計し、 Vue で SCSS もたない。
   - [ ] firebase 見直し。Vue 側は薄く持ちたい。
   - [ ] Vercel でホスト。
+  - [ ] 現行の firebase 仕様に合わせて検索の精度上げたい。
+  - [ ] 投稿画面改修。バリデーション見直し。
+  - [ ] frontend か backend かタグ付けしときたい。
+  - [ ] 一覧の並び順を大文字小文字で分けたくない。
 
 # readwords 🤔
 
@@ -37,3 +41,6 @@
   ![投稿画面](./images/screenshot3.png)
 - 再編集時
   ![再編集時](./images/screenshot4.png)
+- 削除時
+  ![削除確認](./images/screenshot5.png)  
+  ![削除完了](./images/screenshot6.png)

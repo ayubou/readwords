@@ -1,0 +1,63 @@
+@use "tokens" as *;
+
+html {
+  font-size: $root-font-size;
+}
+
+body {
+  background: $primary-bg;
+  color: $primary-font;
+  font-family: $webfont;
+  font-size: 1.6rem;
+  line-height: 1.7;
+}
+
+a {
+  display: inline-block;
+  color: $primary-font;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+button {
+  transition: all 0.3s;
+}
+
+input,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  border: none;
+  color: $primary-font;
+  outline: none;
+}
+
+p {
+  font-size: 1.6rem;
+  line-height: 1.7;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: $webfont;
+  margin: 0;
+}
+
+textarea::-webkit-scrollbar {
+  width: 3px;
+}
+textarea::-webkit-scrollbar-track {
+  background-color: $primary-bg;
+}
+textarea::-webkit-scrollbar-thumb {
+  background-color: $primary-point;
+  border-radius: 5px;
+}

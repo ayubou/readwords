@@ -1,0 +1,23 @@
+@use "../../foundation/_globals" as g;
+
+.c-nav {
+  padding: 8px 30px;
+  border-bottom: 6px solid g.$primary-sub;
+  outline: 10px solid g.$primary-base;
+  box-sizing: border-box;
+  background: g.$primary-point;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+
+  li {
+    display: inline-block;
+    vertical-align: middle;
+
+    & + li {
+      margin-left: 5px;
+    }
+  }
+}
