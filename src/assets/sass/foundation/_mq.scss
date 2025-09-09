@@ -1,0 +1,28 @@
+@use "sass:map";
+
+// ブレークポイントの初期値設定
+$mq-breakpoints: (
+  xl: 1440px,
+  lg: 1280px,
+  md: 1024px,
+  tb: 828px,
+  sm: 576px,
+  xs: 414px,
+) !default;
+
+// メディアクエリ
+// 例) @include mq(md) { ... }
+@mixin mq($breakpoint: md, $rule: max, $subtraction: false) {
+  // ブレークポイント値の取り出し
+  $bp: map.get($mq-breakpoints, $breakpoint);
+
+  // Safari等の境界ズレ回避
+  @if $rule == max and $subtraction {
+    $bp: $bp - 0.0625;
+  }
+
+  // メディアクエリ出力
+  @media screen and (#{$rule}-width: #{$bp}) {
+    @content;
+  }
+}

@@ -1,0 +1,52 @@
+@use "../../foundation/globals" as g;
+@use "../../foundation/mq" as mq;
+
+.c-search {
+  position: fixed;
+  z-index: 1;
+  right: 30px;
+  top: 6px;
+  display: flex;
+  align-items: center;
+  @include mq.mq(xs) {
+    align-items: flex-end;
+    flex-direction: column-reverse;
+  }
+
+  input {
+    border: none;
+    background: g.$primary-bg;
+  }
+  button {
+    border: none;
+    background: #b1afff;
+    width: 20px;
+    color: #fdfdbd;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    span {
+      font-size: 14px;
+    }
+  }
+
+  &--results {
+    margin-right: 10px;
+    color: g.$primary-bg;
+    font-size: 13px;
+    @include mq.mq(xs) {
+      background: g.$primary-point;
+      margin: 0;
+      padding: 3px 10px;
+    }
+  }
+
+  &__form {
+    display: flex;
+    padding: 5px;
+    border-radius: 3px;
+    background: g.$primary-bg;
+  }
+}

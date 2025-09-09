@@ -1,0 +1,14 @@
+@use "../foundation/globals" as g;
+@use "../foundation/mq" as mq;
+
+.l-columns {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 30px;
+  @include mq.mq(tb) {
+    margin: 0 15px;
+  }
+  @include mq.mq(xs) {
+    flex-direction: column;
+  }
+}

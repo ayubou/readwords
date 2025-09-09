@@ -1,0 +1,63 @@
+@use "../../foundation/globals" as g;
+@use "../../foundation/mq" as mq;
+
+#c-modal-delete {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  background: g.$primary-point;
+  max-width: 350px;
+  box-sizing: border-box;
+  padding: 50px 30px;
+  border-radius: 5px;
+  text-align: center;
+  border: 2px solid g.$primary-bg;
+  outline: 4px solid g.$primary-point;
+  @include mq.mq(xs) {
+    max-width: 300px;
+    padding: 30px 20px;
+  }
+  h3 {
+    color: g.$primary-bg;
+    margin-bottom: 30px;
+    letter-spacing: 0.15em;
+  }
+  li {
+    display: inline-block;
+    + li {
+      margin-left: 15px;
+    }
+    button {
+      display: inline-block;
+      width: 100px;
+      line-height: 30px;
+      font-size: 1.3rem;
+      border-radius: 5px;
+      cursor: pointer;
+      color: g.$primary-point;
+      font-weight: bold;
+      &.yes {
+        background: g.$primary-base;
+        box-shadow: 0 3px 0 g.$primary-bg;
+      }
+      &.no {
+        background: g.$primary-sub;
+        box-shadow: 0 3px 0 g.$primary-bg;
+      }
+    }
+  }
+  &.result {
+    background: g.$primary-result;
+    outline: 4px solid g.$primary-result;
+    h3 {
+      color: g.$primary-font;
+    }
+    li {
+      button {
+        color: g.$primary-font;
+      }
+    }
+  }
+}

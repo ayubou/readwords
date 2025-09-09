@@ -1,0 +1,159 @@
+@use "../../foundation/globals" as g;
+@use "../../foundation/mq" as mq;
+
+@keyframes move-stripe {
+  0% {
+    background-position-x: 0;
+  }
+  100% {
+    background-position-x: -34px;
+  }
+}
+
+.c-card {
+  flex-basis: 33.3%;
+  padding: 30px;
+  box-sizing: border-box;
+  @include mq.mq(tb) {
+    flex-basis: 50%;
+    padding: 20px 15px;
+  }
+  & > div {
+    background: g.$primary-base;
+    padding: 50px 30px 20px;
+    box-sizing: border-box;
+    position: relative;
+    border: 1px solid g.$primary-point;
+    border-top: 3px solid g.$primary-point;
+    border-radius: 5px;
+
+    &::before {
+      content: "";
+      display: block;
+      border: 1px solid g.$primary-point;
+      background-size: auto auto;
+      background-color: g.$primary-bg;
+      background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 5px,
+        g.$primary-point 5px,
+        g.$primary-point 6px
+      );
+      animation: move-stripe 2.5s infinite linear;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: -10px;
+      bottom: -10px;
+      z-index: -1;
+      border-radius: 5px;
+      opacity: 0.5;
+    }
+  }
+
+  &__main {
+    small {
+      position: absolute;
+      left: 0;
+      top: 15px;
+      display: inline-block;
+      background: #fdfdbd;
+      padding: 5px 30px;
+      font-size: 1.2rem;
+      letter-spacing: 0.1em;
+      &::before {
+        content: "";
+        display: block;
+        border-top: 15px transparent solid;
+        border-bottom: 15px transparent solid;
+        border-right: 15px g.$primary-base solid;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+    h2 {
+      font-size: 3.3rem;
+      text-shadow: 3px 3px 0 g.$primary-bg;
+      color: g.$primary-point;
+      @include mq.mq(xs) {
+        font-size: 2.7rem;
+      }
+    }
+    span {
+      display: block;
+      margin-top: 15px;
+      margin-left: -10px;
+      margin-right: -10px;
+      margin-bottom: -5px;
+      box-sizing: border-box;
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      background: g.$primary-sub;
+      letter-spacing: 0.1em;
+      border-radius: 5px;
+    }
+  }
+
+  &--update {
+    background: #fff;
+    margin-top: 20px;
+    margin-left: -10px;
+    margin-right: -10px;
+    border-radius: 5px;
+    background: g.$primary-bg;
+    padding: 20px 20px 15px;
+    dl {
+      display: flex;
+      align-content: center;
+      dt {
+        font-size: 1.2rem;
+        flex-basis: 15%;
+        padding-top: 3px;
+        font-weight: bold;
+        color: g.$primary-point;
+      }
+      dd {
+        border-left: 1px solid g.$primary-sub;
+        flex-basis: 85%;
+        input,
+        textarea {
+          width: 100%;
+          padding: 5px 10px;
+          box-sizing: border-box;
+          background: g.$primary-bg;
+          color: g.$primary-font;
+          font-size: 1.3rem;
+        }
+      }
+    }
+    button {
+      display: inline-block;
+      padding: 3px 10px;
+      color: g.$primary-bg;
+      background: g.$primary-point;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 15px;
+      letter-spacing: 0.1em;
+    }
+  }
+
+  #delete {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    button {
+      display: inline-block;
+      padding: 3px 10px;
+      color: g.$primary-bg;
+      background: g.$primary-point;
+      border-radius: 5px;
+      cursor: pointer;
+      letter-spacing: 0.1em;
+    }
+  }
+}

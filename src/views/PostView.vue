@@ -1,10 +1,10 @@
 <template>
   <div class="post">
-    <h2 class="sub-title">New Post</h2>
+    <h2 class="c-title">New Post</h2>
 
-    <div class="result" v-if="result">{{ result }}</div>
+    <div class="c-alert" v-if="result">{{ result }}</div>
 
-    <div class="form">
+    <div class="c-form">
       <dl>
         <dt><label for="word">単語</label></dt>
         <dd><input type="text" v-model="name" name="word" id="word" /></dd>
@@ -22,9 +22,11 @@
       <button @click="addTodo">Add</button>
     </div>
 
-    <button @click="logout" class="logout">ログアウト</button>
+    <button @click="logout" class="c-btn-logout">ログアウト</button>
   </div>
 </template>
+
+<style lang="scss" scoped src="@/assets/sass/object/project/post.scss"></style>
 
 <script setup lang="ts">
 //TODO:全体的に見直す
@@ -80,26 +82,3 @@ async function addTodo() {
   }
 }
 </script>
-
-<style scoped lang="scss">
-.logout {
-  margin: 20px auto 0;
-  background: $primary-sub;
-  color: $primary-point;
-  display: block;
-  width: 100%;
-  line-height: 40px;
-  letter-spacing: 0.2em;
-  font-weight: bold;
-  border-radius: 5px;
-  cursor: pointer;
-  box-shadow: 0 3px 0 $primary-point;
-  max-width: 200px;
-
-  &:hover {
-    color: $primary-bg;
-    background: $primary-point;
-    box-shadow: 0 3px 0 $primary-sub;
-  }
-}
-</style>

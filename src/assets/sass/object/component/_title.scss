@@ -1,0 +1,10 @@
+@use "../../foundation/_globals" as g;
+
+.c-title {
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 40px;
+  color: g.$primary-point;
+  font-family: g.$webfont-sub;
+  font-weight: normal;
+}

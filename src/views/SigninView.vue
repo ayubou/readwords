@@ -1,13 +1,13 @@
 <template>
   <div class="signin">
-    <h2 class="sub-title">Sign In</h2>
+    <h2 class="c-title">Sign In</h2>
 
-    <div class="result" v-if="logoutText !== undefined || errMsg">
+    <div class="c-alert" v-if="logoutText !== undefined || errMsg">
       <span v-if="errMsg">{{ errMsg }}</span>
       <span v-else>{{ logoutText }}</span>
     </div>
 
-    <div class="form">
+    <div class="c-form">
       <dl>
         <dt>
           <label for="email">
