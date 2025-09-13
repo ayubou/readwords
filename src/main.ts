@@ -1,24 +1,16 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
-import { initializeApp } from "firebase/app";
 import App from "./App.vue";
-import router from "./router/index";
+import router from "./router";
 import "@/assets/sass/main.scss";
+import "@/lib/firebase";
+import { useAuthStore } from "@/features/auth/store/auth";
 
-//TODO:全体的に見直す
+const app = createApp(App);
+const pinia = createPinia();
 
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_API_KEY,
-  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
-  databaseURL: import.meta.env.VITE_DATABASE_URL,
-  projectId: import.meta.env.VITE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_APP_ID,
-  measurementId: import.meta.env.VITE_MEASUREMENT_ID,
-};
+app.use(pinia).use(router);
 
-// Firebase 初期化
-initializeApp(firebaseConfig);
+useAuthStore(pinia).init();
 
-createApp(App).use(createPinia()).use(router).mount("#app");
+app.mount("#app");

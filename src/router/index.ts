@@ -3,26 +3,26 @@ import {
   createWebHistory,
   type RouteRecordRaw,
 } from "vue-router";
-import HomeView from "@/views/HomeView.vue";
-import PostView from "@/views/PostView.vue";
-import SigninView from "@/views/SigninView.vue";
+import Home from "@/pages/Home.vue";
+import Post from "@/pages/Post.vue";
+import Signin from "@/pages/Signin.vue";
 
 // TODO：見直す
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
     name: "home",
-    component: HomeView,
+    component: Home,
   },
   {
     path: "/post",
     name: "post",
-    component: PostView,
+    component: Post,
   },
   {
     path: "/signin",
     name: "signin",
-    component: SigninView,
+    component: Signin,
     props: true,
   },
 ];
