@@ -1,45 +1,41 @@
 <template>
-  <div class="c-form">
-    <dl>
-      <dt>
-        <label for="email">
-          <span class="material-symbols-outlined">mail</span>
-        </label>
-      </dt>
-      <dd>
-        <input
-          type="email"
-          v-model="email"
-          name="email"
-          id="email"
-          :disabled="isLoading"
-        />
-      </dd>
-    </dl>
-    <dl>
-      <dt>
-        <label for="key">
-          <span class="material-symbols-outlined">key</span>
-        </label>
-      </dt>
-      <dd>
-        <input
-          type="password"
-          v-model="password"
-          name="key"
-          id="key"
-          :disabled="isLoading"
-        />
-      </dd>
-    </dl>
-    <button @click="login" :disabled="isLoading">
+  <form class="c-form" @submit.prevent="login">
+    <div>
+      <label for="email">
+        <span class="material-symbols-outlined">mail</span>
+      </label>
+      <input
+        type="email"
+        v-model="email"
+        name="email"
+        id="email"
+        required
+        :disabled="isLoading"
+      />
+    </div>
+    <div>
+      <label for="key">
+        <span class="material-symbols-outlined">key</span>
+      </label>
+      <input
+        type="password"
+        v-model="password"
+        name="key"
+        id="key"
+        required
+        :disabled="isLoading"
+      />
+    </div>
+    <button type="submit" :disabled="isLoading">
       {{ isLoading ? "ログイン中..." : "ログイン" }}
     </button>
-  </div>
+  </form>
 </template>
 
+<style lang="scss" src="@/assets/sass/object/component/form.scss" />
+
 <script setup lang="ts">
-import { ref, watch, onMounted } from "vue";
+import { ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/features/auth/store/auth";
@@ -49,7 +45,7 @@ import { useAuthStore } from "@/features/auth/store/auth";
 //========================================
 
 const emit = defineEmits<{
-  error: [string];
+  (e: "authError", message: string): void;
 }>();
 
 //========================================
@@ -57,7 +53,7 @@ const emit = defineEmits<{
 //========================================
 
 const auth = useAuthStore();
-const { isLogin, ready } = storeToRefs(auth);
+const { isLoggedIn, ready } = storeToRefs(auth);
 const router = useRouter();
 const email = ref("");
 const password = ref("");
@@ -68,27 +64,24 @@ const isLoading = ref(false);
 //========================================
 
 // ログインチェック
-onMounted(() => {
-  if (ready.value && isLogin.value) {
-    router.push("/post");
-  }
-});
-
-// ログイン状態を監視
-watch([ready, isLogin], ([r, login]) => {
-  if (r && login) router.push("/post");
-});
+watch(
+  [ready, isLoggedIn],
+  ([r, login]) => {
+    if (r && login) router.push("/post").catch(console.error);
+  },
+  { immediate: true }
+);
 
 /**
- * Login
+ * ログイン
  */
 const login = async () => {
   isLoading.value = true;
   try {
-    auth.loginWithEmail(email.value, password.value);
+    await auth.loginWithEmail(email.value, password.value);
   } catch (e: unknown) {
     console.error(e instanceof Error ? e.message : e);
-    emit("error", "ログインに失敗しました");
+    emit("authError", "ログインに失敗しました");
   } finally {
     isLoading.value = false;
   }

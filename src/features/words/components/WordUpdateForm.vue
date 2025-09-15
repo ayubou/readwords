@@ -1,35 +1,54 @@
 <template>
-  <div class="c-card--update">
-    <dl>
-      <dt><label for="kana">かな</label></dt>
-      <dd><input v-model="word.kana" name="kana" id="kana" /></dd>
-    </dl>
-    <dl>
-      <dt><label for="word">単語</label></dt>
-      <dd><input v-model="word.name" name="word" id="word" /></dd>
-    </dl>
-    <dl>
-      <dt><label for="detail">備考</label></dt>
-      <dd><textarea v-model="word.detail" name="detail" id="detail" /></dd>
-    </dl>
-    <button @click="update(word.wordId)" :disabled="isLoading">
+  <form class="c-card--update" @submit.prevent="submitForm">
+    <div>
+      <label for="kana">かな</label>
+      <input
+        v-model="word.kana"
+        name="kana"
+        id="kana"
+        required
+        :disabled="isLoading"
+      />
+    </div>
+    <div>
+      <label for="word">単語</label>
+      <input
+        v-model="word.name"
+        name="word"
+        id="word"
+        required
+        :disabled="isLoading"
+      />
+    </div>
+    <div>
+      <label for="detail">備考</label>
+      <textarea
+        v-model="word.detail"
+        name="detail"
+        id="detail"
+        required
+        :disabled="isLoading"
+      />
+    </div>
+    <button type="submit" :disabled="isLoading">
       {{ isLoading ? "更新中..." : "更新" }}
     </button>
-    <button @click="emit('close')">閉じる</button>
-  </div>
+    <button type="button" @click="emit('close')">閉じる</button>
+  </form>
 </template>
 
 <script lang="ts" setup>
 import { ref } from "vue";
 import { updateWord } from "@/features/words/services/repository";
+import { type AlertType } from "@/components/ui/Alert.vue";
 
 //========================================
 // props & emit
 //========================================
 
 const props = defineProps<{
-  d: {
-    wordId: string;
+  word: {
+    id: string;
     kana: string;
     name: string;
     detail: string;
@@ -37,27 +56,30 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  result: [string, "info" | "error"];
-  close: [];
+  (e: "result", message: string, type: AlertType): void;
+  (e: "close"): void;
 }>();
 
 //========================================
 // data
 //========================================
 
-const word = ref({ ...props.d });
+const word = ref({ ...props.word });
 const isLoading = ref(false);
 
 //========================================
 // method
 //========================================
 
-async function update(id: string) {
+/**
+ * 単語を更新
+ */
+const submitForm = async () => {
   // TODO:バリデーションチェック・アラート
   if (word.value.kana && word.value.name && word.value.detail) {
     isLoading.value = true;
     try {
-      await updateWord(id, {
+      await updateWord(word.value.id, {
         name: word.value.name,
         kana: word.value.kana,
         detail: word.value.detail,
@@ -70,5 +92,5 @@ async function update(id: string) {
       isLoading.value = false;
     }
   }
-}
+};
 </script>

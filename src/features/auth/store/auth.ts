@@ -17,11 +17,14 @@ export const useAuthStore = defineStore("auth", {
   }),
 
   getters: {
-    isLogin: (s) => !!s.user,
+    // ログイン状態
+    isLoggedIn: (s): boolean => !!s.user,
   },
 
   actions: {
-    // 初期化
+    /**
+     * 初期化
+     */
     init() {
       if (this._started) return;
       this._started = true;
@@ -34,7 +37,9 @@ export const useAuthStore = defineStore("auth", {
       });
     },
 
-    // 監視停止
+    /**
+     * 監視停止
+     */
     stop() {
       this._unsub?.();
       this._unsub = null;
@@ -43,12 +48,18 @@ export const useAuthStore = defineStore("auth", {
       this.ready = false;
     },
 
-    // ログイン
+    /**
+     * ログイン
+     * @param email メールアドレス
+     * @param password パスワード
+     */
     async loginWithEmail(email: string, password: string) {
       await signInWithEmailAndPassword(auth, email, password);
     },
 
-    // ログアウト
+    /**
+     * ログアウト
+     */
     async logout() {
       await signOut(auth);
     },

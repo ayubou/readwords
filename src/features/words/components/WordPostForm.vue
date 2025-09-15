@@ -1,57 +1,57 @@
 <template>
   <!-- TODO:バリデーションチェック追加 -->
-  <div class="c-form">
-    <dl>
-      <dt><label for="word">単語</label></dt>
-      <dd>
-        <input
-          type="text"
-          v-model="name"
-          name="word"
-          id="word"
-          :disabled="isLoading"
-        />
-      </dd>
-    </dl>
-    <dl>
-      <dt><label for="kana">かな</label></dt>
-      <dd>
-        <input
-          type="text"
-          v-model="kana"
-          name="kana"
-          id="kana"
-          :disabled="isLoading"
-        />
-      </dd>
-    </dl>
-    <dl>
-      <dt><label for="detail">詳細</label></dt>
-      <dd>
-        <textarea
-          v-model="detail"
-          name="detail"
-          id="detail"
-          :disabled="isLoading"
-        />
-      </dd>
-    </dl>
-    <button @click="addTodo" :disabled="isLoading">
+  <form class="c-form" @submit.prevent="submitForm">
+    <div>
+      <label for="word">単語</label>
+      <input
+        v-model="name"
+        type="text"
+        name="word"
+        id="word"
+        required
+        :disabled="isLoading"
+      />
+    </div>
+    <div>
+      <label for="kana">かな</label>
+      <input
+        v-model="kana"
+        type="text"
+        name="kana"
+        id="kana"
+        required
+        :disabled="isLoading"
+      />
+    </div>
+    <div>
+      <label for="detail">詳細</label>
+      <textarea
+        v-model="detail"
+        name="detail"
+        id="detail"
+        required
+        :disabled="isLoading"
+      />
+    </div>
+    <button type="submit" :disabled="isLoading">
       {{ isLoading ? "投稿中..." : "投稿" }}
     </button>
-  </div>
+  </form>
 </template>
+
+<style lang="scss" src="@/assets/sass/object/component/form.scss" />
 
 <script setup lang="ts">
 import { ref } from "vue";
 import { createWord } from "@/features/words/services/repository";
+import { type AlertType } from "@/components/ui/Alert.vue";
 
 //========================================
 // emit
 //========================================
 
 const emit = defineEmits<{
-  result: [string, "info" | "error"];
+  (e: "result", message: string, type: AlertType): void;
 }>();
 
 //========================================
@@ -67,8 +67,10 @@ const isLoading = ref(false);
 // method
 //========================================
 
-// 登録処理
-async function addTodo() {
+/**
+ * 新規単語登録
+ */
+const submitForm = async () => {
   // TODO:バリデーションチェック
   if (name.value && kana.value && detail.value) {
     isLoading.value = true;
@@ -93,5 +95,5 @@ async function addTodo() {
   } else {
     emit("result", "未入力項目があります", "error");
   }
-}
+};
 </script>

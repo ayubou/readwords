@@ -4,11 +4,15 @@
   </div>
 </template>
 
+<style lang="scss" src="@/assets/sass/object/component/alert.scss" />
+
 <script setup lang="ts">
+export type AlertType = "info" | "error";
+
 //========================================
 // props
 //========================================
-withDefaults(defineProps<{ text: string; type?: "info" | "error" }>(), {
+withDefaults(defineProps<{ text: string; type?: AlertType }>(), {
   type: "info",
 });
 </script>

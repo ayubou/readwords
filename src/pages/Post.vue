@@ -1,8 +1,8 @@
 <template>
   <div class="post">
     <Title title="New Post" />
-    <Alert :text="result" :type="alert" />
-    <PostForm @result="setAlert" />
+    <Alert :text="alert.text" :type="alert.type" />
+    <WordPostForm @result="setAlert" />
 
     <button @click="logout" class="c-btn-logout" :disabled="isLoading">
       {{ isLoading ? "ログアウト中..." : "ログアウト" }}
@@ -18,46 +18,56 @@ import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/features/auth/store/auth";
 import Title from "@/components/ui/Title.vue";
-import Alert from "@/components/ui/Alert.vue";
-import PostForm from "@/features/words/components/WordPostForm.vue";
-
-//TODO:全体的に見直す
+import Alert, { type AlertType } from "@/components/ui/Alert.vue";
+import WordPostForm from "@/features/words/components/WordPostForm.vue";
 
 //========================================
 // data
 //========================================
 
-const result = ref("");
 const isLoading = ref(false);
-// TODO:型共通化
-const alert = ref<"info" | "error">("info");
-
+const alert = ref<{
+  text: string;
+  type: AlertType;
+}>({
+  text: "",
+  type: "info",
+});
 const router = useRouter();
 const auth = useAuthStore();
-const { isLogin, ready } = storeToRefs(auth);
+const { isLoggedIn } = storeToRefs(auth);
 
 //========================================
 // method
 //========================================
 
-const setAlert = (info: string, type: "info" | "error") => {
-  result.value = info;
-  alert.value = type;
+/**
+ * アラームを設定
+ * @param info アラームメッセージ
+ * @param type アラートタイプ
+ */
+const setAlert = (text: string, type: AlertType) => {
+  alert.value = {
+    text,
+    type,
+  };
 };
 
 // ログインチェック
 onMounted(() => {
-  if (!ready.value && !isLogin.value) {
-    router.push("/");
-  }
+  if (!isLoggedIn.value) router.push("/").catch((err) => console.error(err));
 });
 
 // ログイン状態を監視
-watch(isLogin, (login) => {
-  if (!login) router.push("/");
+watch(isLoggedIn, (login) => {
+  if (!login) {
+    router.push("/").catch((err) => console.error(err));
+  }
 });
 
-// ログアウト処理
+/**
+ * ログアウト
+ */
 const logout = async () => {
   isLoading.value = true;
   try {

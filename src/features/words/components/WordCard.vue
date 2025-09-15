@@ -1,24 +1,24 @@
 <template>
-  <div :id="d.wordId">
-    <div @click="isUpdate = !isUpdate" class="c-card__main">
-      <small>{{ d.kana }}</small>
-      <h2>{{ d.name }}</h2>
-      <span>{{ d.detail }}</span>
+  <div :id="word.id">
+    <div @click="isOpen = !isOpen" class="c-card__main">
+      <small>{{ word.kana }}</small>
+      <h2>{{ word.name }}</h2>
+      <span>{{ word.detail }}</span>
     </div>
 
     <WordUpdateForm
-      v-if="isLogin && isUpdate && openId === d.wordId"
-      :d="{
-        wordId: d.wordId,
-        kana: d.kana,
-        name: d.name,
-        detail: d.detail,
+      v-if="isLoggedIn && isOpen && updateWordId === word.id"
+      :word="{
+        id: word.id,
+        kana: word.kana,
+        name: word.name,
+        detail: word.detail,
       }"
-      @close="isUpdate = false"
+      @close="isOpen = false"
     />
 
-    <div id="delete">
-      <button v-if="isLogin" @click="emit('delete')">delete</button>
+    <div v-if="isLoggedIn" class="btn-delete">
+      <button @click="emit('delete')">delete</button>
     </div>
   </div>
 </template>
@@ -28,28 +28,32 @@ import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/features/auth/store/auth";
 import WordUpdateForm from "@/features/words/components/WordUpdateForm.vue";
+import { type AlertType } from "@/components/ui/Alert.vue";
 
 //========================================
 // props & emit
 //========================================
 
-const props = defineProps<{
-  d: {
-    wordId: string;
+defineProps<{
+  word: {
+    id: string;
     kana: string;
     name: string;
     detail: string;
   };
-  openId: string;
+  updateWordId: string;
 }>();
 
 const emit = defineEmits<{
-  result: [string, "info" | "error"];
-  delete: [];
+  (e: "result", message: string, type: AlertType): void;
+  (e: "delete"): void;
 }>();
 
-const auth = useAuthStore();
-const { isLogin } = storeToRefs(auth);
+//========================================
+// data
+//========================================
 
-const isUpdate = ref(false);
+const auth = useAuthStore();
+const { isLoggedIn } = storeToRefs(auth);
+const isOpen = ref(false);
 </script>

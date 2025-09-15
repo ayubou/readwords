@@ -1,16 +1,15 @@
 ## 🚧 このリポジトリは現在リファクタリング中です 🚧
 
 - 2022 年作の自作プロジェクトで全体的にかなり古いので、コードを整理してモダンな構成に移行中。
-- 【現状進捗】
+- 【進捗状況】
   - [x] （20250908）Vue2 +JS 構造は一旦そのままで Vue3+TS に変更。全体見直しはまだ。
   - [x] （20250909）CSS は FLOCSS で、 Vue で SCSS もたない。
   - [x] （20250913）全体的にディレクトリ構造見直し。
   - [x] （20250913）firebase は service にまとめて Vue 側は薄く持つ。
+  - [x] （20250915）Vue 全体的にコードリファクタ。JSDoc いれる。
 - 【今後の目標】
-  - [ ] 全体的にコードリファクタ。JSDoc いれる。
   - [ ] ビルド設定見直し。
   - [ ] Vercel でホスト。
-  - [ ] 現行の firebase 仕様に合わせて検索の精度上げたい。
   - [ ] 投稿画面改修。バリデーション見直し。
   - [ ] frontend か backend かタグ付けしときたい。
   - [ ] 一覧の並び順を大文字小文字で分けたくない。
@@ -25,6 +24,7 @@
 ![Vue.js](https://img.shields.io/badge/Vue.js-3.4.0-35495E?logo=vuedotjs)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.2-3178C6?logo=typescript)
 ![Vite](https://img.shields.io/badge/Vite-5.0.0-646CFF?logo=Vite)
+![Pinia](https://img.shields.io/badge/pinia-2.1.7-ECB732)
 ![Firebase](https://img.shields.io/badge/Firebase-12.2.1-FFCA28?logo=firebase)
 ![Node.js](https://img.shields.io/badge/Node.js-22.19.0-339933?logo=node.js)
 ![Yarn](https://img.shields.io/badge/Yarn-4.9.4-2C8EBB?logo=yarn)

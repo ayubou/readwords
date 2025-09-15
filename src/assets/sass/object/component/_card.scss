@@ -105,28 +105,30 @@
     border-radius: 5px;
     background: g.$primary-bg;
     padding: 20px 20px 15px;
-    dl {
+    div {
       display: flex;
       align-content: center;
-      dt {
+      padding-bottom: 10px;
+      label {
+        display: inline-block;
         font-size: 1.2rem;
         flex-basis: 15%;
         padding-top: 3px;
         font-weight: bold;
         color: g.$primary-point;
+        border-right: 1px solid g.$primary-sub;
       }
-      dd {
-        border-left: 1px solid g.$primary-sub;
-        flex-basis: 85%;
-        input,
-        textarea {
-          width: 100%;
-          padding: 5px 10px;
-          box-sizing: border-box;
-          background: g.$primary-bg;
-          color: g.$primary-font;
-          font-size: 1.3rem;
-        }
+      input,
+      textarea {
+        width: 100%;
+        padding: 5px 10px;
+        box-sizing: border-box;
+        background: g.$primary-bg;
+        color: g.$primary-font;
+        font-size: 1.3rem;
+      }
+      textarea {
+        height: 80px;
       }
     }
     button {
@@ -139,10 +141,18 @@
       width: 100%;
       margin-top: 15px;
       letter-spacing: 0.1em;
+      line-height: 1.5;
+      font-weight: normal;
+      &:hover {
+        background: g.$primary-sub;
+      }
+      + button {
+        margin-top: 10px;
+      }
     }
   }
 
-  #delete {
+  .btn-delete {
     position: absolute;
     right: 20px;
     top: 15px;
@@ -154,6 +164,9 @@
       border-radius: 5px;
       cursor: pointer;
       letter-spacing: 0.1em;
+      margin: 0;
+      line-height: 1.2;
+      font-weight: normal;
     }
   }
 }

@@ -1,0 +1,21 @@
+@use "../../foundation/globals" as g;
+
+button {
+  margin-top: 20px;
+  background: g.$primary-point;
+  color: g.$primary-bg;
+  display: block;
+  width: 100%;
+  line-height: 40px;
+  letter-spacing: 0.2em;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 3px 0 g.$primary-bg;
+
+  &:hover {
+    color: g.$primary-point;
+    background: g.$primary-bg;
+    box-shadow: 0 3px 0 g.$primary-point;
+  }
+}

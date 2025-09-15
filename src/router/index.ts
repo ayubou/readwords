@@ -3,12 +3,14 @@ import {
   createWebHistory,
   type RouteRecordRaw,
 } from "vue-router";
-import Home from "@/pages/Home.vue";
-import Post from "@/pages/Post.vue";
-import Signin from "@/pages/Signin.vue";
+// pageは各画面表示時に読み込む
+const Home = () => import("@/pages/Home.vue");
+const Post = () => import("@/pages/Post.vue");
+const Signin = () => import("@/pages/Signin.vue");
+const NotFound = () => import("@/pages/NotFound.vue");
 
-// TODO：見直す
-const routes: RouteRecordRaw[] = [
+// ルート一覧
+const routes = [
   {
     path: "/",
     name: "home",
@@ -25,7 +27,12 @@ const routes: RouteRecordRaw[] = [
     component: Signin,
     props: true,
   },
-];
+  {
+    path: "/:pathMatch(.*)*",
+    name: "not-found",
+    component: NotFound,
+  },
+] satisfies RouteRecordRaw[];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

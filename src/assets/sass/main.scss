@@ -1,5 +1,2 @@
 @use "./foundation/index" as *;
-@use "./layout/index";
-@use "./object/component/form";
-@use "./object/component/title";
-@use "./object/component/alert";
+@use "./layout/app";
