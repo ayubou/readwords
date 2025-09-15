@@ -1,0 +1,51 @@
+@use "../../foundation/globals" as g;
+@use "../../foundation/mq" as mq;
+@use "../component/btn";
+
+.c-form {
+  background: g.$primary-base;
+  border-radius: 5px;
+  max-width: 400px;
+  border: 1px solid g.$primary-point;
+  border-top: 3px solid g.$primary-point;
+  border-radius: 5px;
+  padding: 30px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  @include mq.mq(xs) {
+    padding: 30px 20px;
+    margin: 0 15px;
+  }
+  div {
+    display: flex;
+    align-items: center;
+    + div {
+      margin-top: 10px;
+    }
+    label {
+      display: inline-block;
+      flex-basis: 10%;
+      font-size: 1.3rem;
+      @include mq.mq(xs) {
+        flex-basis: 15%;
+      }
+      span {
+        font-size: 20px;
+        color: g.$primary-point;
+      }
+    }
+    input,
+    textarea {
+      width: 100%;
+      font-size: 1.6rem;
+      padding: 10px;
+      border-radius: 5px;
+      box-sizing: border-box;
+      margin-left: 10px;
+    }
+
+    textarea {
+      height: 100px;
+    }
+  }
+}

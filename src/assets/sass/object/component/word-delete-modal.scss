@@ -1,7 +1,7 @@
 @use "../../foundation/globals" as g;
 @use "../../foundation/mq" as mq;
 
-#c-modal-delete {
+.c-word-delete-modal {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -29,26 +29,26 @@
     + li {
       margin-left: 15px;
     }
-    button {
-      display: inline-block;
-      width: 100px;
-      line-height: 30px;
-      font-size: 1.3rem;
-      border-radius: 5px;
-      cursor: pointer;
-      color: g.$primary-point;
-      font-weight: bold;
-      &.yes {
-        background: g.$primary-base;
-        box-shadow: 0 3px 0 g.$primary-bg;
-      }
-      &.no {
-        background: g.$primary-sub;
-        box-shadow: 0 3px 0 g.$primary-bg;
-      }
+  }
+  &__btn {
+    display: inline-block;
+    width: 100px;
+    line-height: 30px;
+    font-size: 1.3rem;
+    border-radius: 5px;
+    cursor: pointer;
+    color: g.$primary-point;
+    font-weight: bold;
+    &--yes {
+      background: g.$primary-base;
+      box-shadow: 0 3px 0 g.$primary-bg;
+    }
+    &--no {
+      background: g.$primary-sub;
+      box-shadow: 0 3px 0 g.$primary-bg;
     }
   }
-  &.result {
+  &--result {
     background: g.$primary-result;
     outline: 4px solid g.$primary-result;
     h3 {

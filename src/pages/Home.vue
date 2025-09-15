@@ -1,102 +1,122 @@
 <template>
   <div class="home">
-    <SearchInput @result="searchWords" />
+    <SearchInput @filterTerm="onFilterTerm" />
 
-    <h1 id="c-logo">What do you read...? 🤔</h1>
+    <h1 id="c-logo" :aria-label="logoText">
+      <span
+        v-for="(c, i) in logoChars"
+        :key="i"
+        class="c-logo__txt"
+        :style="`--i:${i}`"
+        aria-hidden="true"
+        >{{ c }}</span
+      >
+    </h1>
 
     <div class="l-columns">
       <div
-        v-for="word in words"
+        v-for="word in displayedWords"
         :key="word.id"
-        :class="[isLogin ? 'c-card more' : 'c-card']"
+        :class="['c-card', { 'c-card--active': isLoggedIn }]"
       >
-        <div @click="openId = word.id">
+        <div @click="updateWordId = word.id">
           <WordCard
-            :d="{
-              wordId: word.id,
+            :updateWordId
+            :word="{
+              id: word.id,
               kana: word.kana,
               name: word.name,
               detail: word.detail,
             }"
-            :openId
-            @delete="openDeleteModal(word.id, word.name)"
+            @delete="openWordDeleteModal(word.id, word.name)"
           />
         </div>
       </div>
     </div>
-    <!-- /.l-columns -->
 
-    <DeleteModal :isModal :wordName :wordId @close="closeDeleteModal" />
+    <WordDeleteModal
+      v-model:isOpen="showDeleteModal"
+      :word="wordToDelete"
+      @close="closeWordDeleteModal"
+    />
   </div>
-  <!-- /.home -->
 </template>
 
 <style lang="scss" src="@/assets/sass/object/project/home.scss" />
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue";
-import type { Unsubscribe } from "firebase/firestore";
+import { ref, onMounted, onUnmounted, computed } from "vue";
+import GraphemeSplitter from "grapheme-splitter";
 import { Word } from "@/features/words/types/word";
-import SearchInput from "@/components/ui/SearchInput.vue";
-import DeleteModal from "@/features/words/components/WordDeleteModal.vue";
-import WordCard from "@/features/words/components/WordCard.vue";
+import type { Unsubscribe } from "firebase/firestore";
 import { subscribeWords } from "@/features/words/services/repository";
+import SearchInput from "@/components/ui/SearchInput.vue";
+import WordDeleteModal from "@/features/words/components/WordDeleteModal.vue";
+import WordCard from "@/features/words/components/WordCard.vue";
 
-// TODO:全体的に見直す
-
-const isLogin = ref(false);
-const isModal = ref(false);
-const wordId = ref("");
-const wordName = ref("");
-const openId = ref("");
-
-const words = ref<Word[]>([]);
+//========================================
+// data
+//========================================
 
 let unSub: Unsubscribe | null = null;
+const isLoggedIn = ref(false);
 
-const searchWords = (result: Word[]) => {
-  words.value = result;
+const updateWordId = ref("");
+
+const allWords = ref<Word[]>([]);
+const filterTerm = ref<string>("");
+const norm = (s: string) => s.toLowerCase();
+const displayedWords = computed(() =>
+  allWords.value.filter((w) => norm(w.name).includes(norm(filterTerm.value)))
+);
+
+const logoText = "What do you read...? 🤔";
+const splitter = new GraphemeSplitter();
+const logoChars = splitter.splitGraphemes(logoText);
+
+const showDeleteModal = ref(false);
+const wordToDelete = ref({
+  id: "",
+  name: "",
+});
+
+//========================================
+// method
+//========================================
+
+/**
+ * 検索欄で入力された文字列を取得
+ * @param input 入力値
+ */
+const onFilterTerm = (input: string) => (filterTerm.value = input);
+
+/**
+ * WordDeleteModalを表示
+ * @param id 単語ID
+ * @param name 単語名
+ */
+const openWordDeleteModal = (id: string, name: string) => {
+  wordToDelete.value = {
+    id,
+    name,
+  };
+  showDeleteModal.value = true;
 };
 
-function openDeleteModal(id: string, name: string) {
-  wordId.value = id;
-  wordName.value = name;
-  isModal.value = true;
-}
-
-function closeDeleteModal() {
-  wordId.value = "";
-  wordName.value = "";
-  isModal.value = false;
-}
-
-// TODO:見直す
-function logoAnimation() {
-  const logotxt = document.getElementById("c-logo");
-  const splitLogo = logotxt ? logotxt.textContent?.split("") ?? [] : [];
-  if (splitLogo.length > 0 && logotxt) {
-    const createLogo = splitLogo
-      .map((x) => `<span class="c-logo__txt">${x}</span>`)
-      .join("");
-    logotxt.innerHTML = createLogo;
-    const logotxt2 = document.getElementsByClassName(
-      "c-logo__txt"
-    ) as HTMLCollectionOf<HTMLElement>;
-    for (let i = 0; i < logotxt2.length; i++) {
-      setTimeout(() => {
-        logotxt2[i].classList.add("jump");
-      }, i * 50);
-    }
-  }
-}
+/**
+ * WordDeleteModalを非表示
+ */
+const closeWordDeleteModal = () => {
+  // 初期化
+  wordToDelete.value = {
+    id: "",
+    name: "",
+  };
+};
 
 onMounted(() => {
   // 単語一覧の購読開始
-  unSub = subscribeWords((list) => {
-    words.value = list;
-  });
-  // ロゴアニメ
-  logoAnimation();
+  unSub = subscribeWords((list) => (allWords.value = list));
 });
 
 onUnmounted(() => {

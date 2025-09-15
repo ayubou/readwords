@@ -1,8 +1,8 @@
 <template>
   <div class="signin">
     <Title title="Sign In" />
-    <Alert :text="errorTxt" type="error" />
-    <SignInForm @error="setErrorTxt" />
+    <Alert v-if="errorTxt" :text="errorTxt" type="error" />
+    <SignInForm @authError="setErrorText" />
   </div>
 </template>
 
@@ -11,7 +11,12 @@ import SignInForm from "@/features/auth/components/SignInForm.vue";
 import Title from "@/components/ui/Title.vue";
 import Alert from "@/components/ui/Alert.vue";
 import { ref } from "vue";
+
 const errorTxt = ref("");
 
-const setErrorTxt = (msg: string) => (errorTxt.value = msg);
+/**
+ * エラーメッセージを設定
+ * @param message メッセージ
+ */
+const setErrorText = (message: string) => (errorTxt.value = message);
 </script>
