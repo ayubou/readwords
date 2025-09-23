@@ -29,6 +29,10 @@ export function subscribeWords(callback: (words: Word[]) => void): Unsubscribe {
       const data = d.data() as Omit<Word, "id">;
       list.push({ id: d.id, ...data });
     });
+    // 記号→数値→アルファベット順に並び替え
+    list.sort((a, b) => {
+      return a.name.localeCompare(b.name, "en", { sensitivity: "base" });
+    });
     callback(list);
   });
 }
